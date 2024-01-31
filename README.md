@@ -1,2 +1,3 @@
-# isitgenocide.com
+# Is It Genocide
+
 Codebase powering IsItGenocide.com
