@@ -14,6 +14,9 @@ const App: Component = () => {
         <Show when={screen() === 'DECIDE'}>
           <Decide setScreen={setScreen} />
         </Show>
+        <Show when={screen() === 'QUOTES'}>
+          <Quotes setScreen={setScreen} />
+        </Show>
       </Presence>
     </main>
   );
@@ -51,10 +54,35 @@ const Decide: Component<Slide> = (props) => {
           animate={{ opacity: [0, 1] }}
           transition={{ delay: 15.5, easing: 'ease-in', duration: 1.5 }}
           class='bg-white/50 rounded-full p-1 hover:bg-white/60 duration-75 ease-in-out hover:shadow-sm hover:shadow-stone-300'
-          onclick={() => props.setScreen('QUOTES')}
+          onclick={() => setTimeout(() => props.setScreen('QUOTES'), 200)}
         >
           <ArrowRight />
         </Motion.button>
+      </section>
+    </Motion>
+  );
+};
+
+// TODO: Fix jittery
+const Quotes: Component<Slide> = (props) => {
+  const typeWriter = createTypeWriter({
+    words: [
+      'The following are real quotes from Israel state officials and military leaders...',
+    ],
+    typeSpeed: 50,
+    delaySpeed: 2000,
+    deleteSpeed: 30,
+  });
+
+  return (
+    <Motion
+      animate={{ opacity: [0, 1] }}
+      transition={{ delay: 2.2, easing: 'ease-in', duration: 1.5 }}
+      exit={{ opacity: 0, transition: { duration: 0.8 } }}
+    >
+      <section class='text-left text-stone-400 text-2xl h-32'>
+        <span class=''>{typeWriter().text}</span>
+        <Cursor />
       </section>
     </Motion>
   );
