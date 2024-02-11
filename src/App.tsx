@@ -9,10 +9,12 @@ const App: Component = () => {
   const [screen, setScreen] = createSignal<Screen>('DECIDE');
 
   return (
-    <main class='h-full w-2/3 flex flex-col justify-center'>
-      <Presence>
+    <main class='h-full w-2/3 flex flex-col justify-center container'>
+      <Presence exitBeforeEnter>
         <Show when={screen() === 'DECIDE'}>
-          <Decide setScreen={setScreen} />
+          <Motion exit={{ opacity: 0, transition: { duration: 0.8 } }}>
+            <Decide setScreen={setScreen} />
+          </Motion>
         </Show>
         <Show when={screen() === 'QUOTES'}>
           <Quotes setScreen={setScreen} />
@@ -37,8 +39,8 @@ const Decide: Component<Slide> = (props) => {
   });
 
   return (
-    <Motion exit={{ opacity: 0, transition: { duration: 0.8 } }}>
-      <section class='text-left text-stone-400 text-2xl h-32'>
+    <>
+      <section class='text-left text-stone-400 text-2xl h-40'>
         <span class=''>{typeWriter().text}</span>
         <Cursor />
       </section>
@@ -59,31 +61,25 @@ const Decide: Component<Slide> = (props) => {
           <ArrowRight />
         </Motion.button>
       </section>
-    </Motion>
+    </>
   );
 };
 
-// TODO: Fix jittery
 const Quotes: Component<Slide> = (props) => {
-  const typeWriter = createTypeWriter({
-    words: [
-      'The following are real quotes from Israel state officials and military leaders...',
-    ],
-    typeSpeed: 50,
-    delaySpeed: 2000,
-    deleteSpeed: 30,
-  });
-
   return (
     <Motion
-      animate={{ opacity: [0, 1] }}
-      transition={{ delay: 2.2, easing: 'ease-in', duration: 1.5 }}
-      exit={{ opacity: 0, transition: { duration: 0.8 } }}
+      animate={{ height: [0, '100%'] }}
+      transition={{ delay: 2.3, duration: 3 }}
     >
-      <section class='text-left text-stone-400 text-2xl h-32'>
-        <span class=''>{typeWriter().text}</span>
-        <Cursor />
-      </section>
+      <Motion.section
+        animate={{ opacity: [0, 1] }}
+        transition={{ delay: 0.8, easing: 'ease-in', duration: 1.5 }}
+      >
+        <span class='text-stone-400 text-2xl'>
+          The following are real quotes from Israeli state officials and
+          military leaders
+        </span>
+      </Motion.section>
     </Motion>
   );
 };
