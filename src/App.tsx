@@ -9,7 +9,7 @@ const App: Component = () => {
   const [screen, setScreen] = createSignal<Screen>('DECIDE');
 
   return (
-    <main class='h-full w-2/3 flex flex-col justify-center container'>
+    <main class='h-full md:w-2/3 flex flex-col justify-center px-2 md:px-0 container'>
       <Presence exitBeforeEnter>
         <Show when={screen() === 'DECIDE'}>
           <Motion exit={{ opacity: 0, transition: { duration: 0.8 } }}>
@@ -40,15 +40,15 @@ const Decide: Component<Slide> = (props) => {
 
   return (
     <>
-      <section class='text-left text-stone-400 text-2xl h-40'>
+      <section class=' text-left text-stone-400 md:text-2xl text-lg md:h-40 h-32'>
         <span class=''>{typeWriter().text}</span>
         <Cursor />
       </section>
-      <section class='flex'>
+      <section class='flex items-center'>
         <Motion.span
           animate={{ opacity: [0, 1] }}
           transition={{ delay: 14, easing: 'ease-in', duration: 1.5 }}
-          class='text-stone-400 text-2xl italic mr-4'
+          class='text-stone-400 md:text-2xl text-lg italic mr-4'
         >
           Decide for yourself
         </Motion.span>
@@ -69,13 +69,13 @@ const Quotes: Component<Slide> = (props) => {
   return (
     <Motion
       animate={{ height: [0, '100%'] }}
-      transition={{ delay: 2.3, duration: 3 }}
+      transition={{ delay: 4.6, duration: 3 }}
     >
       <Motion.section
         animate={{ opacity: [0, 1] }}
         transition={{ delay: 0.8, easing: 'ease-in', duration: 1.5 }}
       >
-        <span class='text-stone-400 text-2xl'>
+        <span class='text-stone-400 md:text-2xl text-lg'>
           The following are real quotes from Israeli state officials and
           military leaders
         </span>

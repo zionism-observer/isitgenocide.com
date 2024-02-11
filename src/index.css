@@ -10,5 +10,5 @@
   height: 100svh;
   width: 100vw;
   background: #0a0a0a;
-  @apply flex flex-col items-center;
+  @apply flex flex-col items-center font-serif;
 }
