@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+#root {
+  height: 100svh;
+  background: #0a0a0a;
+  @apply flex flex-col items-center container;
+}
