@@ -39,8 +39,8 @@ interface Slide {
 const Decide: Component<Slide> = (props) => {
   const typeWriter = createTypeWriter({
     words: [
-      "The Israeli-Palestinian conflict has been called a genocide...",
-      "Some have found this to be a controversial statement calling the allegation anti-semitic.",
+      "The war in Gaza has been called a genocide...",
+      "Some say the allegation is anti-semitic.",
     ],
     typeSpeed: 50,
     delaySpeed: 2000,
@@ -59,7 +59,7 @@ const Decide: Component<Slide> = (props) => {
           transition={{ delay: 14, easing: "ease-in", duration: 1.5 }}
           class="text-stone-400 md:text-2xl text-lg italic mr-4"
         >
-          Decide for yourself
+          Is it genocide? Decide for yourself
         </Motion.span>
         <Motion.button
           animate={{ opacity: [0, 1] }}
