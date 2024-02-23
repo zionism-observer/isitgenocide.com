@@ -28,7 +28,7 @@ blockquote {
 blockquote:before {
   display: block;
   padding-left: 10px;
-  content: '\201C';
+  content: "\201C";
   font-size: 64px;
   position: absolute;
   left: -10px;
@@ -48,17 +48,31 @@ blockquote cite {
 }
 
 blockquote cite:before {
-  content: '\2014 \2009';
+  content: "\2014 \2009";
 }
 
 .fade-in-section {
   opacity: 0;
   visibility: hidden;
-  transition: opacity 1200ms ease-in, visibility 1200ms ease-in;
+  transition:
+    opacity 1200ms ease-in,
+    visibility 1200ms ease-in;
   will-change: opacity, visibility;
 }
 .fade-in-section.is-visible {
   opacity: 1;
   transform: none;
   visibility: visible;
+}
+
+.color-anim {
+  animation: color-change 1.5s ease forwards;
+}
+@keyframes color-change {
+  0% {
+    color: rgb(168 162 158);
+  }
+  100% {
+    color: rgb(153 27 27);
+  }
 }
