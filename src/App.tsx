@@ -40,7 +40,7 @@ const Decide: Component<Slide> = (props) => {
   const typeWriter = createTypeWriter({
     words: [
       "The war in Gaza has been called a genocide...",
-      "Some say the allegation is anti-semitic.",
+      "Some say the allegation is anti-semitic. Is it genocide?  ",
     ],
     typeSpeed: 50,
     delaySpeed: 2000,
@@ -59,7 +59,7 @@ const Decide: Component<Slide> = (props) => {
           transition={{ delay: 14, easing: "ease-in", duration: 1.5 }}
           class="text-stone-400 md:text-2xl text-lg italic mr-4"
         >
-          Is it genocide? Decide for yourself
+          Decide for yourself
         </Motion.span>
         <Motion.button
           animate={{ opacity: [0, 1] }}
@@ -103,7 +103,7 @@ const Quotes: Component<Slide> = (props) => {
         transition={{ delay: 0.8, easing: "ease-in", duration: 1.5 }}
       >
         <span class="text-stone-400 md:text-2xl text-center">
-          The following are real quotes from Israeli state officials and
+          The following are real quotes from Israeli state and
           military leaders
         </span>
       </Motion.section>
