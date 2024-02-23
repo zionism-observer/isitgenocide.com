@@ -103,8 +103,7 @@ const Quotes: Component<Slide> = (props) => {
         transition={{ delay: 0.8, easing: "ease-in", duration: 1.5 }}
       >
         <span class="text-stone-400 md:text-2xl text-center">
-          The following are real quotes from Israeli state and
-          military leaders
+          The following are real quotes from Israeli leaders
         </span>
       </Motion.section>
       <Motion.section
