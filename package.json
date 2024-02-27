@@ -23,6 +23,7 @@
     "lucide-solid": "^0.323.0",
     "path": "^0.12.7",
     "solid-js": "^1.8.11",
-    "solid-motionone": "^1.0.0"
+    "solid-motionone": "^1.0.0",
+    "typewriter-effect": "^2.21.0"
   }
 }
