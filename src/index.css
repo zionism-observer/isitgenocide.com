@@ -97,3 +97,7 @@ blockquote cite:before {
 .animate-pulse {
   animation: pulse 1.5s ease-in-out infinite;
 }
+
+.emphasize {
+  @apply font-[600] text-red-800;
+}
