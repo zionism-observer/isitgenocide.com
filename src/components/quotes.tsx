@@ -4,6 +4,8 @@ import {
   createEffect,
   createResource,
   createSignal,
+  onCleanup,
+  onMount,
 } from "solid-js";
 import { Motion } from "solid-motionone";
 
@@ -14,6 +16,7 @@ type Quote = {
   "person-url": string;
   "image-url": string;
   "source-url": string;
+  hidden: string;
 };
 
 export const Quotes: Component = () => {
@@ -23,9 +26,10 @@ export const Quotes: Component = () => {
       if (!response.ok) {
         throw new Error("Failed to fetch quotes");
       }
-      const quotes: Quote[] = await response.json();
+      let quotes: Quote[] = await response.json();
+      // hide hidden quotes
+      quotes = quotes.filter((quote) => quote.hidden === "false");
       return quotes;
-      // Do something with the quotes
     } catch (error) {
       console.error(error);
       return [];
@@ -33,6 +37,14 @@ export const Quotes: Component = () => {
   };
 
   const [data] = createResource(fetchQuotes);
+
+  let elRef: HTMLDivElement | null;
+  createEffect(() => {
+    const timeout = setTimeout(() => {
+      elRef.removeAttribute("hidden");
+    }, 7000);
+    return () => clearTimeout(timeout);
+  });
 
   return (
     <Motion
@@ -44,69 +56,137 @@ export const Quotes: Component = () => {
         animate={{ opacity: [0, 1] }}
         transition={{ delay: 0.8, easing: "ease-in", duration: 1.5 }}
       >
-        <span class="text-stone-400 md:text-2xl text-center">
+        <span class="text-stone-400 md:text-2xl text-xl text-center pb-20">
           The following are real quotes from Israeli leaders
         </span>
       </Motion.section>
-      <Motion.section
-        animate={{ opacity: [0, 1] }}
-        transition={{ delay: 8, duration: 1 }}
-        class="h-full space-y-10 py-4"
-      >
-        <For each={data()}>{(item) => <QuoteCard {...item} />}</For>
-      </Motion.section>
+      <section ref={elRef} hidden class="h-full space-y-10 py-4 pt-32">
+        <For each={data()}>
+          {(quote, index) => <QuoteCard quote={quote} index={index()} />}
+        </For>
+        <Outro />
+      </section>
     </Motion>
   );
 };
 
-const QuoteCard: Component<Quote> = (props) => {
-  const [isVisible, setVisible] = createSignal(false);
+interface IQuoteCard {
+  quote: Quote;
+  index: number;
+}
+const QuoteCard: Component<IQuoteCard> = (props) => {
+  const [opacity, setOpacity] = createSignal(0);
+  let elRef: HTMLDivElement | null;
+
+  let duration: number;
+  let delay: number;
+  if (props.index === 0) {
+    duration = 4;
+    delay = 1000;
+  } else if (props.index < 5) {
+    duration = 4;
+    delay = 4000;
+  } else {
+    duration = 2;
+  }
+
+  onMount(() => {
+    if (props.index >= 5) return;
+    const t = setTimeout(
+      () => {
+        setOpacity(1);
+      },
+      (props.index + 1) * delay + 7000,
+    );
+    return () => clearTimeout(t);
+  });
+
+  createEffect(() => {
+    if (props.index < 5) return;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        setOpacity(entry.isIntersecting ? 1 : 0);
+      });
+    });
+    observer.observe(elRef);
+    return () => observer.disconnect();
+  });
+
+  return (
+    <Motion
+      animate={{ opacity: opacity() }}
+      transition={{ duration: duration }}
+      class={`w-full flex gap-6`}
+      ref={elRef}
+    >
+      <blockquote
+        cite={props.quote["source-url"]}
+        class="text-stone-400 md:text-xl text-lg font-light grow"
+      >
+        <a
+          href={props.quote["source-url"]}
+          target="_blank"
+          innerHTML={props.quote.quote}
+          class="hover:text-stone-300 hover:underline"
+        ></a>
+        <cite class="md:text-lg">
+          <a
+            href={props.quote["person-url"]}
+            target="_blank"
+            class="hover:text-stone-300"
+          >
+            {props.quote["person-name"]}, {props.quote["person-title"]}{" "}
+          </a>
+        </cite>
+      </blockquote>
+    </Motion>
+  );
+};
+
+const Outro: Component = () => {
+  const [opacity, setOpacity] = createSignal(0);
   let elRef: HTMLDivElement | null;
 
   createEffect(() => {
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => setVisible(entry.isIntersecting));
+      entries.forEach((entry) => {
+        setOpacity(entry.isIntersecting ? 1 : 0);
+      });
     });
     observer.observe(elRef);
+
+    return () => observer.disconnect();
   });
 
   return (
     <div
-      class={`w-full flex gap-6 fade-in-section ${isVisible() ? "is-visible" : ""}`}
+      class="pt-20 space-y-8 text-stone-400 text-xl font-semibold absolute left-0 text-center"
       ref={elRef}
     >
-      <img
-        src={props["image-url"]}
-        alt={props["person-name"]}
-        class={`md:w-20 md:h-28 w-12 h-20 blur-sm  `}
-        style={{
-          "object-fit": "cover",
-          filter: "grayscale(100%)",
-        }}
-      />
-      <blockquote
-        cite={props["source-url"]}
-        class="text-stone-400 md:text-lg text-xs font-thin font-sans grow"
+      <Motion.p
+        initial={false}
+        animate={{ opacity: opacity() }}
+        transition={{ easing: "ease-in", duration: 1.5 }}
+        class="text-5xl tracking-wide font-mono leading-loose"
       >
-        <div innerHTML={props.quote}></div>
-        <cite class="md:text-lg text-xs">
-          <a
-            href={props["person-url"]}
-            target="_blank"
-            class="hover:underline hover:underline-offset-4"
-          >
-            {props["person-name"]}
-          </a>
-          , {props["person-title"]}{" "}
-        </cite>
-        <a
-          href={props["source-url"]}
-          target="_blank"
-          class="hover:underline hover:underline-offset-4 text-sm font-serif float-right"
-        >
-          (Source)
-        </a>
-      </blockquote>
+        "What would I do if my country was committing a genocide? The answer is,
+        you're doing it. Right now." -- Aaron Bushnell
+      </Motion.p>
+      <Motion.p
+        initial={false}
+        animate={{ opacity: opacity() }}
+        transition={{ easing: "ease-in", duration: 1.5, delay: 4 }}
+      >
+        Powered by Zionism Observer
+      </Motion.p>
+      <Motion.p
+        initial={false}
+        animate={{ opacity: opacity() }}
+        transition={{ easing: "ease-in", duration: 1.5, delay: 7 }}
+        class="pb-20"
+      >
+        In Partnership with Tech For Palestine
+      </Motion.p>
     </div>
   );
 };
