@@ -50,7 +50,7 @@ export const Quotes: Component = () => {
     <Motion
       animate={{ height: [0, "100%"] }}
       transition={{ delay: 4.6, duration: 3 }}
-      class="py-6"
+      class="py-6 w-full h-full"
     >
       <Motion.section
         animate={{ opacity: [0, 1] }}
@@ -60,10 +60,14 @@ export const Quotes: Component = () => {
           The following are real quotes from Israeli leaders
         </span>
       </Motion.section>
-      <section ref={elRef} hidden class="h-full space-y-10 py-4 pt-32">
-        <For each={data()}>
-          {(quote, index) => <QuoteCard quote={quote} index={index()} />}
-        </For>
+      <section ref={elRef} hidden class="space-y-10 py-4 pt-32 w-full">
+        {data() ? (
+          <>
+            <For each={data()}>
+              {(quote, index) => <QuoteCard quote={quote} index={index()} />}
+            </For>
+          </>
+        ) : null}
         <Outro />
       </section>
     </Motion>
@@ -81,11 +85,11 @@ const QuoteCard: Component<IQuoteCard> = (props) => {
   let duration: number;
   let delay: number;
   if (props.index === 0) {
-    duration = 4;
+    duration = 3;
     delay = 1000;
   } else if (props.index < 5) {
-    duration = 4;
-    delay = 4000;
+    duration = 3;
+    delay = 3000;
   } else {
     duration = 2;
   }
@@ -116,18 +120,17 @@ const QuoteCard: Component<IQuoteCard> = (props) => {
     <Motion
       animate={{ opacity: opacity() }}
       transition={{ duration: duration }}
-      class={`w-full flex gap-6`}
       ref={elRef}
     >
       <blockquote
         cite={props.quote["source-url"]}
-        class="text-stone-400 md:text-xl text-lg font-light grow"
+        class="text-stone-400 md:text-xl text-lg font-light"
       >
         <a
           href={props.quote["source-url"]}
           target="_blank"
           innerHTML={props.quote.quote}
-          class=" group hover:text-stone-300 transition ease-in-out delay-100 duration-300"
+          class=" group hover:text-stone-300 transition ease-in-out delay-100 duration-300 text-wrap"
         ></a>
         <cite class="md:text-lg">
           <a
@@ -160,33 +163,42 @@ const Outro: Component = () => {
 
   return (
     <div
-      class="pt-20 space-y-8 text-stone-400 text-xl font-semibold absolute left-0 text-center"
+      class="pt-20 space-y-8 text-stone-400 text-xl font-semibold absolute left-0 text-center w-full md:px-0 px-1"
       ref={elRef}
     >
       <Motion.p
         initial={false}
         animate={{ opacity: opacity() }}
         transition={{ easing: "ease-in", duration: 1.5 }}
-        class="text-5xl tracking-wide font-mono leading-loose"
+        class="text-4xl md:text-8xl tracking-wide leading-loose font-extralight md:pb-24 pb-8"
       >
         "What would I do if my country was committing a genocide? The answer is,
         you're doing it. Right now." -- Aaron Bushnell
       </Motion.p>
-      <Motion.p
+      <Motion.a
         initial={false}
         animate={{ opacity: opacity() }}
         transition={{ easing: "ease-in", duration: 1.5, delay: 4 }}
+        class="flex items-center justify-center hover:text-stone-300 transition ease-in-out delay-100 duration-300 flex-wrap"
+        href="https://zionism.observer/"
+        target="_blank"
       >
-        Powered by Zionism Observer
-      </Motion.p>
-      <Motion.p
+        Powered by
+        <img src="/icons/zo.png" class="h-5 w-auto mx-2" />
+        Zionism Observer. Visit for more well-documented research on this war
+      </Motion.a>
+      <Motion.a
         initial={false}
         animate={{ opacity: opacity() }}
         transition={{ easing: "ease-in", duration: 1.5, delay: 7 }}
-        class="pb-20"
+        class="md:pb-20 pb-8 flex items-center justify-center hover:text-stone-300 transition ease-in-out delay-100 duration-300 flex-wrap"
+        href="https://techforpalestine.org/"
+        target="_blank"
       >
-        In Partnership with Tech For Palestine
-      </Motion.p>
+        In Partnership with
+        <img src="/icons/t4p.svg" class="h-4 w-auto mx-2" />
+        Tech For Palestine
+      </Motion.a>
     </div>
   );
 };
