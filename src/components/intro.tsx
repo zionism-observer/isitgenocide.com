@@ -13,7 +13,7 @@ export const Decide: Component<Slide> = (props) => {
   onMount(() => {
     const t = new Typewriter(spanRef, {
       delay: 50,
-      deleteSpeed: 30,
+      deleteSpeed: 10,
     });
     t.typeString("The war in Gaza has been called a genocide...")
       .pauseFor(3000)
@@ -31,11 +31,11 @@ export const Decide: Component<Slide> = (props) => {
       <section class="flex text-left text-stone-400 md:text-2xl text-xl md:h-40 h-32 relative">
         <span ref={spanRef}></span>
       </section>
-      <section class="flex items-center">
+      <section class="flex items-center text-stone-400 md:text-2xl text-xl">
         <Motion.span
           animate={{ opacity: [0, 1] }}
           transition={{ delay: 16, easing: "ease-in", duration: 3.5 }}
-          class="text-stone-400 md:text-2xl text-lg italic mr-4"
+          class="italic mr-4"
         >
           Decide for yourself
         </Motion.span>
