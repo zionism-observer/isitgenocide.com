@@ -9,12 +9,12 @@ const App: Component = () => {
   return (
     <main class="h-full md:w-2/3 flex flex-col justify-center px-2 md:px-0 container">
       <Presence exitBeforeEnter>
-        {/* <Show when={screen() === "DECIDE"}> */}
-        {/*   <Motion exit={{ opacity: 0, transition: { duration: 0.8 } }}> */}
-        {/*     <Decide setScreen={setScreen} /> */}
-        {/*   </Motion> */}
-        {/* </Show> */}
-        <Show when={true || screen() === "QUOTES"}>
+        <Show when={screen() === "DECIDE"}>
+          <Motion exit={{ opacity: 0, transition: { duration: 0.8 } }}>
+            <Decide setScreen={setScreen} />
+          </Motion>
+        </Show>
+        <Show when={screen() === "QUOTES"}>
           <Quotes />
         </Show>
       </Presence>
