@@ -99,5 +99,5 @@ blockquote cite:before {
 }
 
 .emphasize {
-  @apply font-[600] text-red-800;
+  @apply font-[600] text-red-800 group-hover:text-red-600 transition ease-in-out delay-100 duration-300;
 }

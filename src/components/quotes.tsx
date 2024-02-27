@@ -127,13 +127,13 @@ const QuoteCard: Component<IQuoteCard> = (props) => {
           href={props.quote["source-url"]}
           target="_blank"
           innerHTML={props.quote.quote}
-          class="hover:text-stone-300 hover:underline"
+          class=" group hover:text-stone-300 transition ease-in-out delay-100 duration-300"
         ></a>
         <cite class="md:text-lg">
           <a
             href={props.quote["person-url"]}
             target="_blank"
-            class="hover:text-stone-300"
+            class="hover:text-stone-300 transition ease-in-out delay-100 duration-300"
           >
             {props.quote["person-name"]}, {props.quote["person-title"]}{" "}
           </a>
