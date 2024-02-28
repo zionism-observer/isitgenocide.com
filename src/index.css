@@ -16,7 +16,7 @@ body {
   @apply flex flex-col items-center font-serif h-full w-full overflow-y-auto relative;
 }
 
-blockquote {
+blockquote.quotes {
   padding: 0.35em 40px;
   line-height: 1.45;
   position: relative;
@@ -25,14 +25,14 @@ blockquote {
   }
 }
 
-blockquote:before {
+blockquote.quotes:before {
   display: block;
   padding-left: 10px;
   content: "\201C";
   font-size: 64px;
   position: absolute;
   left: -10px;
-  top: 20px;
+  top: -10px;
   color: #7a7a7a;
   font-family: Georgia, serif;
 
@@ -41,13 +41,13 @@ blockquote:before {
   }
 }
 
-blockquote cite {
+blockquote.quotes cite {
   color: #999999;
   display: block;
   margin-top: 5px;
 }
 
-blockquote cite:before {
+blockquote.quotes cite:before {
   content: "\2014 \2009";
 }
 

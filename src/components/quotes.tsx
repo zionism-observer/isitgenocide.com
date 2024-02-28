@@ -60,7 +60,7 @@ export const Quotes: Component = () => {
           The following are real quotes from Israeli leaders
         </span>
       </Motion.section>
-      <section ref={elRef} hidden class="space-y-10 py-4 pt-32 w-full">
+      <section ref={elRef} hidden class="space-y-10 py-4 md:pt-32 pt-12 w-full">
         {data() ? (
           <>
             <For each={data()}>
@@ -124,7 +124,7 @@ const QuoteCard: Component<IQuoteCard> = (props) => {
     >
       <blockquote
         cite={props.quote["source-url"]}
-        class="text-stone-400 md:text-xl text-lg font-light"
+        class="text-stone-400 md:text-xl text-lg font-light quotes"
       >
         <a
           href={props.quote["source-url"]}
@@ -166,7 +166,7 @@ const Outro: Component = () => {
       class="pt-20 space-y-8 text-stone-400 text-xl font-semibold absolute left-0 text-center w-full md:px-0 px-1"
       ref={elRef}
     >
-      <Motion.p
+      <Motion.blockquote
         initial={false}
         animate={{ opacity: opacity() }}
         transition={{ easing: "ease-in", duration: 1.5 }}
@@ -174,7 +174,7 @@ const Outro: Component = () => {
       >
         "What would I do if my country was committing a genocide? The answer is,
         you're doing it. Right now." -- Aaron Bushnell
-      </Motion.p>
+      </Motion.blockquote>
       <Motion.a
         initial={false}
         animate={{ opacity: opacity() }}
