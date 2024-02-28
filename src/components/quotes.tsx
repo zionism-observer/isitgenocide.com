@@ -215,7 +215,7 @@ const Outro: Component = () => {
         initial={false}
         animate={{ opacity: opacity() }}
         transition={{ easing: "ease-in", duration: 1.5, delay: 7 }}
-        class="md:pb-20 pb-8 flex items-center justify-center hover:text-stone-300 transition ease-in-out delay-100 duration-300 flex-wrap"
+        class="flex items-center justify-center hover:text-stone-300 transition ease-in-out delay-100 duration-300 flex-wrap"
         href="https://techforpalestine.org/"
         target="_blank"
       >
@@ -223,6 +223,34 @@ const Outro: Component = () => {
         <img src="/icons/t4p.svg" class="h-4 w-auto mx-2" />
         Tech For Palestine
       </Motion.a>
+      <Motion.p
+        initial={false}
+        animate={{ opacity: opacity() }}
+        transition={{ easing: "ease-in", duration: 1.5, delay: 8.8 }}
+        class="md:pb-20 pb-8"
+      >
+        All music and sounds from{" "}
+        <a
+          class="hover:text-stone-300 transition ease-in-out delay-100 duration-300"
+          href="https://pixabay.com/"
+        >
+          Pixabay.com
+        </a>
+        . Credit to{" "}
+        <a
+          class="hover:text-stone-300 transition ease-in-out delay-100 duration-300"
+          href="https://pixabay.com/users/sergequadrado-24990007/"
+        >
+          Serge Quadrado
+        </a>{" "}
+        and{" "}
+        <a
+          class="hover:text-stone-300 transition ease-in-out delay-100 duration-300"
+          href="https://pixabay.com/users/universfield-28281460/"
+        >
+          UNIVERSFIELD
+        </a>
+      </Motion.p>
     </div>
   );
 };
