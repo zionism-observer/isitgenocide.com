@@ -49,9 +49,11 @@ export const Quotes: Component = () => {
 
   onMount(() => {
     const windowHeight = window.innerHeight;
-    if (windowHeight > 1488) {
+    if (windowHeight >= 2192) {
+      setMaxIndexToDelay(14);
+    } else if (windowHeight >= 1488) {
       setMaxIndexToDelay(9);
-    } else if (windowHeight > 1024) {
+    } else if (windowHeight >= 1024) {
       setMaxIndexToDelay(7);
     } else {
       setMaxIndexToDelay(5);
@@ -107,7 +109,7 @@ const QuoteCard: Component<IQuoteCard> = (props) => {
   onMount(() => {
     if (props.index === 0) {
       duration = 3;
-      delay = 1000;
+      delay = 500;
     } else if (props.index < props.maxIndexToDelay) {
       duration = 3;
       delay = 3000;
