@@ -4,7 +4,6 @@ import {
   createEffect,
   createResource,
   createSignal,
-  onCleanup,
   onMount,
 } from "solid-js";
 import { Motion } from "solid-motionone";
@@ -46,6 +45,19 @@ export const Quotes: Component = () => {
     return () => clearTimeout(timeout);
   });
 
+  const [maxIndexToDelay, setMaxIndexToDelay] = createSignal(null);
+
+  onMount(() => {
+    const windowHeight = window.innerHeight;
+    if (windowHeight > 1488) {
+      setMaxIndexToDelay(9);
+    } else if (windowHeight > 1024) {
+      setMaxIndexToDelay(7);
+    } else {
+      setMaxIndexToDelay(5);
+    }
+  });
+
   return (
     <Motion
       animate={{ height: [0, "100%"] }}
@@ -64,7 +76,13 @@ export const Quotes: Component = () => {
         {data() ? (
           <>
             <For each={data()}>
-              {(quote, index) => <QuoteCard quote={quote} index={index()} />}
+              {(quote, index) => (
+                <QuoteCard
+                  quote={quote}
+                  index={index()}
+                  maxIndexToDelay={maxIndexToDelay()}
+                />
+              )}
             </For>
           </>
         ) : null}
@@ -77,6 +95,7 @@ export const Quotes: Component = () => {
 interface IQuoteCard {
   quote: Quote;
   index: number;
+  maxIndexToDelay: number;
 }
 const QuoteCard: Component<IQuoteCard> = (props) => {
   const [opacity, setOpacity] = createSignal(0);
@@ -84,29 +103,32 @@ const QuoteCard: Component<IQuoteCard> = (props) => {
 
   let duration: number;
   let delay: number;
-  if (props.index === 0) {
-    duration = 3;
-    delay = 1000;
-  } else if (props.index < 5) {
-    duration = 3;
-    delay = 3000;
-  } else {
-    duration = 2;
-  }
 
   onMount(() => {
-    if (props.index >= 5) return;
+    if (props.index === 0) {
+      duration = 3;
+      delay = 1000;
+    } else if (props.index < props.maxIndexToDelay) {
+      duration = 3;
+      delay = 3000;
+    } else {
+      duration = 2;
+    }
+
+    if (props.index >= props.maxIndexToDelay) return;
+
     const t = setTimeout(
       () => {
         setOpacity(1);
       },
       (props.index + 1) * delay + 7000,
     );
+
     return () => clearTimeout(t);
   });
 
   createEffect(() => {
-    if (props.index < 5) return;
+    if (props.index < props.maxIndexToDelay) return;
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         setOpacity(entry.isIntersecting ? 1 : 0);
@@ -173,7 +195,7 @@ const Outro: Component = () => {
         class="text-4xl md:text-8xl tracking-wide leading-loose font-extralight md:pb-24 pb-8"
       >
         "What would I do if my country was committing a genocide? The answer is,
-        you're doing it. Right now." -- Aaron Bushnell
+        you're doing it. Right now." — Aaron Bushnell
       </Motion.blockquote>
       <Motion.a
         initial={false}
