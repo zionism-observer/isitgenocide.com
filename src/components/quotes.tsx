@@ -185,7 +185,7 @@ const Outro: Component = () => {
       >
         Powered by
         <img src="/icons/zo.png" class="h-5 w-auto mx-2" />
-        Zionism Observer. Visit for more well-documented research on this war
+        Zionism Observer.
       </Motion.a>
       <Motion.a
         initial={false}
