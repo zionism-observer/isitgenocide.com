@@ -15,7 +15,8 @@ export const Decide: Component<Slide> = (props) => {
       delay: 50,
       deleteSpeed: 10,
     });
-    t.typeString("The war in Gaza has been called a genocide...")
+    t.pauseFor(300)
+      .typeString("The war in Gaza has been called a genocide...")
       .pauseFor(3000)
       .deleteAll()
       .typeString("Some say this allegation is anti-semitic.")
