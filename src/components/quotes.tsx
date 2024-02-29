@@ -52,7 +52,7 @@ export const Quotes: Component = () => {
     if (windowHeight >= 2192) {
       setMaxIndexToDelay(14);
     } else if (windowHeight >= 1488) {
-      setMaxIndexToDelay(9);
+      setMaxIndexToDelay(10);
     } else if (windowHeight >= 1024) {
       setMaxIndexToDelay(7);
     } else {
@@ -103,21 +103,15 @@ const QuoteCard: Component<IQuoteCard> = (props) => {
   const [opacity, setOpacity] = createSignal(0);
   let elRef: HTMLDivElement | null;
 
-  let duration: number;
-  let delay: number;
-
   onMount(() => {
-    if (props.index === 0) {
-      duration = 3;
-      delay = 500;
-    } else if (props.index < props.maxIndexToDelay) {
-      duration = 3;
-      delay = 3000;
-    } else {
-      duration = 2;
-    }
-
     if (props.index >= props.maxIndexToDelay) return;
+
+    let delay: number;
+    if (props.index === 0) {
+      delay = 750;
+    } else if (props.index < props.maxIndexToDelay) {
+      delay = 2700;
+    }
 
     const t = setTimeout(
       () => {
@@ -143,7 +137,7 @@ const QuoteCard: Component<IQuoteCard> = (props) => {
   return (
     <Motion
       animate={{ opacity: opacity() }}
-      transition={{ duration: duration }}
+      transition={{ easing: "ease-in", duration: 1.5 }}
       ref={elRef}
     >
       <blockquote
