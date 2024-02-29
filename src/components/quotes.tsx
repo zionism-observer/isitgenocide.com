@@ -196,7 +196,7 @@ const Outro: Component = () => {
       <Motion.a
         initial={false}
         animate={{ opacity: opacity() }}
-        transition={{ easing: "ease-in", duration: 1.5, delay: 4 }}
+        transition={{ easing: "ease-in", duration: 1.5, delay: 3 }}
         class="flex items-center justify-center hover:text-stone-300 transition ease-in-out delay-100 duration-300 flex-wrap"
         href="https://zionism.observer/"
         target="_blank"
@@ -204,6 +204,16 @@ const Outro: Component = () => {
         Powered by
         <img src="/icons/zo.png" class="h-5 w-auto mx-2" />
         Zionism Observer
+      </Motion.a>
+      <Motion.a
+        initial={false}
+        animate={{ opacity: opacity() }}
+        transition={{ easing: "ease-in", duration: 1.5, delay: 5 }}
+        class="flex items-center justify-center hover:text-stone-300 transition ease-in-out delay-100 duration-300 flex-wrap"
+        href="https://zionism.observer/archive"
+        target="_blank"
+      >
+        ↗️ Contribute research to the Zionism Observer database
       </Motion.a>
       <Motion.a
         initial={false}
@@ -220,7 +230,7 @@ const Outro: Component = () => {
       <Motion.p
         initial={false}
         animate={{ opacity: opacity() }}
-        transition={{ easing: "ease-in", duration: 1.5, delay: 8.8 }}
+        transition={{ easing: "ease-in", duration: 1.5, delay: 9 }}
         class="md:pb-20 pb-8"
       >
         All music and sounds from{" "}
