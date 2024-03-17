@@ -231,7 +231,6 @@ const Outro: Component = () => {
         initial={false}
         animate={{ opacity: opacity() }}
         transition={{ easing: "ease-in", duration: 1.5, delay: 9 }}
-        class="md:pb-20 pb-8"
       >
         All music and sounds from{" "}
         <a
@@ -255,6 +254,43 @@ const Outro: Component = () => {
           UNIVERSFIELD
         </a>
       </Motion.p>
+      <Motion.hr
+        initial={false}
+        animate={{ opacity: opacity() - 0.5 }}
+        transition={{ easing: "ease-in", duration: 1.5, delay: 9 }}
+        class="border-t-2 border-gray-600 md:mx-16 mx-2"
+      />
+      <Motion.div
+        initial={false}
+        animate={{ opacity: opacity() }}
+        transition={{ easing: "ease-in", duration: 1.5, delay: 11 }}
+        class="md:pb-20 pb-8 flex flex-col items-center "
+      >
+        <div class="md:text-sm text-xs italic text-left font-light md:w-2/3 w-full px-2 md:px-0">
+          <ul class="space-y-6">
+            <li>
+              *March 16, 2024: The Yoav Gallant quote was updated to remove
+              "Gaza won't return to what it was before. We will eliminate
+              everything" due to ambiguity surrounding the context. The
+              remainder of the quote is untouched. More details on this update
+              can be found{" "}
+              <a
+                class="hover:text-stone-300 transition ease-in-out delay-100 duration-300 underline"
+                href="https://twitter.com/receipts_lol/status/1769020501572067569"
+                target="_blank"
+              >
+                here
+              </a>
+            </li>
+            <li>
+              *March 16, 2024: The source for the Yoav Kisch quote was changed
+              because the video we originally linked to was deleted. The quote
+              is unchanged, but the linked source is now the Law For Palestine's
+              database of genocidal intent.
+            </li>
+          </ul>
+        </div>
+      </Motion.div>
     </div>
   );
 };
